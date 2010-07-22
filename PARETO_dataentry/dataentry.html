@@ -1,0 +1,125 @@
+<html>
+  <title>dataentry</title> 
+  <head> 
+ 
+    <script language="javascript"> 
+        function addRow()
+        {   
+            var ndiv=document.createElement('div');
+            var y=document.getElementById('count');
+                y.value++;
+                        
+            ndiv.id='new'+y.value;
+            var t1=document.createElement('input');
+                t1.type='text';
+                t1.size='30';
+                 t1.id='t'+y.value+'1';
+                 
+                                   
+                
+            var t2=document.createElement('input');
+                t2.type='text';
+                t2.size='10';
+                t2.id='t'+y.value+'2';
+                          
+              
+		 var b1=document.createElement('input');
+                b1.id='b'+y.value+'1';
+                b1.type='image';
+                b1.src="del.png";
+	        b1.value='X';
+                b1.height='20';
+                b1.width='20';
+                 b1.setAttribute('onFocus',"addRow()");
+		b1.onclick=removeRow;
+                                 
+            
+                
+                         
+            ndiv.appendChild(t1);
+            ndiv.appendChild(t2);
+            ndiv.appendChild(b1);           
+            
+           var x= document.getElementById('new');
+           x.appendChild(ndiv);
+                               
+                
+        }
+
+
+      function removeRow() {
+             
+            
+            var d=document.getElementById('new');
+            d.removeChild(document.getElementById(this.parentNode.id));
+             var y=document.getElementById('count');
+                             y.value--; 
+      }
+   
+           function validate()
+      { var temp=new Array();var t=0;   
+          var x=document.getElementById('count');
+           for(i=1;i<=x.value;i++)
+
+            {                 y=document.getElementById('new'+i).childNodes;
+                 for(j=0;j<y.length-1;j++)
+                   {
+                      
+                       alpha=y[j].value;
+                        for(k=0;k<alpha.length;k++)
+                          {
+                            var ch=alpha.charAt(k);
+                             var hh = ch.charCodeAt(0);
+	  if((j==0 )&&(hh > 47 && hh<58)) 
+		  {  t++;
+                       if(t==alpha.length)
+                           {temp[i]= 1;}                     
+		  }
+                   if(j==1&&!(hh > 47 && hh<58)){temp[i]=2; }
+
+		
+                           }
+                       
+                      }      
+       if(temp[i]==1 || temp[i]==2){alert("enter correct values");return false; }
+          
+                          
+              }          
+        
+show();   
+   
+}
+   function show()
+{
+var x1=document.forms[0].elements.length;
+for(i=2;i<x1;i++)
+{ 
+  if(document.forms[0].elements[i].value!="Delete Row")
+    alert(document.forms[0].elements[i].value);
+}
+}   
+
+  </script> 
+  </head> 
+  <body  onLoad="addRow()">
+
+ 
+      <form> 
+            <input type="button" value="display" id="display" onClick="validate()" /> 
+           <input type="hidden" value="0" id="count" /> 
+           <h3>Data Entry</h3>
+<h4>
+Enter item/defect/cause (alpha numeric only) in the first data column and enter its frequency (integer only) in the second data column. Use TAB key to move to next data cell. If you are on the last data cell, TAB key will add a new row. Click on "X" icon to delete a row. Once data entry is complete, click "plot chart" button on top left to create the chart.</h4>
+<center>          <div id="new"> 
+            
+          </div> 
+        
+           
+      </form> 
+</center>
+</body>
+</html>
+
+
+
+ 
